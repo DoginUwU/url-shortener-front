@@ -8,10 +8,22 @@ class ShortenerService {
         return shortener.data;
     }
 
+    static async createPrivateShortenerUrl(data: ICreateShortener): Promise<IShortener> {
+        const shortener = await api.post<IShortener>('/shortener/private', data);
+
+        return shortener.data;
+    }
+
     static async getShortener(shortId: string): Promise<IShortener> {
         const shortener = await api.get<IShortener>(`/shortener/${shortId}`);
 
         return shortener.data;
+    }
+
+    static async getShorteners(): Promise<IShortener[]> {
+        const shorteners = await api.get<IShortener[]>('/shortener');
+
+        return shorteners.data;
     }
 }
 

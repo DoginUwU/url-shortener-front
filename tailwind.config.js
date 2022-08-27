@@ -7,9 +7,10 @@ module.exports = {
                 primary: '#00b8ad',
                 black: '#000',
                 white: '#fff',
+                blue: '#319CFF',
             },
             fontFamily: {
-                poppins: ['Poppins', 'sans-serif'],
+                nunito: ['nunito', 'sans-serif'],
             },
         },
     },

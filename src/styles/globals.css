@@ -8,14 +8,13 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: #FFF;
 }
 
 body {
-    background-color: #000;
+    background-color: #00b8ad;
 }
 
-h1, h2, h3, p, span {
-    font-family: poppins, sans-serif;
+h1, h2, h3, p, span, button, a {
+    font-family: nunito, sans-serif;
 }
 

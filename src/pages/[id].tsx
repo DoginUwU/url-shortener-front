@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import urlMetadata from 'url-metadata';
 import { IShortener } from '../@types/shortener';
+import Footer from '../components/Footer';
 import { ShortenerService } from '../services/api/shortener';
 
 interface IProps {
@@ -20,13 +21,15 @@ const Shortener: NextPage<IProps> = ({ metas, shortener }) => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setSecondsLeft((value) => value - 1);
+            setSecondsLeft((value) => (value > 0 ? value - 1 : value));
         }, 1000);
 
         return () => clearInterval(interval);
     }, []);
 
     useEffect(() => {
+        if (typeof window === 'undefined') return;
+
         if (secondsLeft === 0) {
             window.location.href = shortener.url;
         }
@@ -43,7 +46,8 @@ const Shortener: NextPage<IProps> = ({ metas, shortener }) => {
                 <meta property="og:image" content={metas.image} />
             </Head>
             <img className="w-48 animate-bounce" src="/assets/logo.svg" alt="Encurte seu link" />
-            <p className="font-bold">Você será redirecionado em {secondsLeft} segundos...</p>
+            <p className="font-bold text-white">Você será redirecionado em {secondsLeft} segundos...</p>
+            <Footer />
         </div>
     );
 };
@@ -73,8 +77,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         };
     }
 
-    const metadata = await urlMetadata(shortener.url);
-
     if (!shortener) {
         return {
             redirect: {
@@ -83,6 +85,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             },
         };
     }
+
+    const metadata = await urlMetadata(shortener.url);
 
     return {
         props: {
