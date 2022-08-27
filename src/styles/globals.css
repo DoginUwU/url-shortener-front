@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://use.typekit.net/rwy1kxp.css");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: #FFF;
+}
+
+body {
+    background-color: #000;
+}
+
+h1, h2, h3, p, span {
+    font-family: poppins, sans-serif;
+}
+
