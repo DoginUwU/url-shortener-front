@@ -5,6 +5,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { ICreateSession } from '../@types/session';
+import Button from '../components/Button';
 import Footer from '../components/Footer';
 import { useUser } from '../contexts/UserContext';
 
@@ -17,7 +18,11 @@ const Login: React.FC = () => {
     const { login } = useUser();
     const router = useRouter();
 
-    const { register, handleSubmit } = useForm<ICreateSession>({
+    const {
+        register,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = useForm<ICreateSession>({
         resolver: yupResolver(schema),
     });
 
@@ -58,12 +63,9 @@ const Login: React.FC = () => {
                         {...register('password')}
                     />
                 </div>
-                <button
-                    className="bg-primary text-white py-4 font-bold rounded-md mt-8 transition hover:opacity-90"
-                    type="submit"
-                >
+                <Button className="py-4 font-bold rounded-md mt-8" type="submit" loading={isSubmitting}>
                     Entrar
-                </button>
+                </Button>
             </form>
             <Link href="/register">
                 <p className="text-white cursor-pointer">Ainda sem conta? Crie uma agora :P</p>

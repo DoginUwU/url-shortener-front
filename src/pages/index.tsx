@@ -6,6 +6,7 @@ import { FieldErrorsImpl, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { ICreateShortener } from '../@types/shortener';
+import Button from '../components/Button';
 import Footer from '../components/Footer';
 import { URL_REGEX_VALIDATE } from '../constants/regex';
 import { useUser } from '../contexts/UserContext';
@@ -34,7 +35,12 @@ const Home: React.FC = () => {
     const router = useRouter();
     const { isAuthenticated } = useUser();
     const estimatedLife = format(addDays(new Date(), 10), "yyyy-MM-dd'T'HH:mm");
-    const { register, handleSubmit, watch } = useForm<ICreateShortener>({
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { isSubmitting },
+    } = useForm<ICreateShortener>({
         resolver: yupResolver(schema),
         defaultValues: {
             lifeTime: estimatedLife,
@@ -78,12 +84,9 @@ const Home: React.FC = () => {
                         autoComplete="off"
                         {...register('url')}
                     />
-                    <button
-                        className="bg-primary text-white px-3 py-2 rounded-md transition border-2 border-transparent hover:bg-white hover:text-primary hover:border-primary"
-                        type="submit"
-                    >
+                    <Button type="submit" loading={isSubmitting}>
                         Encurtar
-                    </button>
+                    </Button>
                 </div>
                 <div
                     className={`${showConfigsStyle} transition-all bg-white rounded-sm flex gap-2 flex-col shadow-md overflow-hidden`}
