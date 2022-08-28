@@ -29,6 +29,10 @@ class ShortenerService {
 
         return shorteners.data;
     }
+
+    static async deleteShortener(shortId: string): Promise<void> {
+        await api.delete<void>(`/shortener/${shortId}`);
+    }
 }
 
 export { ShortenerService };

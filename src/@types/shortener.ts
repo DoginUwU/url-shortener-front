@@ -14,6 +14,7 @@ interface IShortener {
 
 interface ICreateShortener {
     url: string;
+    lifeTime: string;
     limit?: number;
     password?: string;
     category?: string;

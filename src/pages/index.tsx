@@ -13,6 +13,7 @@ import { ShortenerService } from '../services/api/shortener';
 
 const schema = yup.object({
     url: yup.string().required('Digite uma URL').trim().matches(URL_REGEX_VALIDATE, 'URL invalido'),
+    lifeTime: yup.date().min(addDays(new Date(), 1), 'A data de expiração deve ser maior que a data atual'),
     limit: yup
         .number()
         .min(0)
@@ -32,13 +33,16 @@ const schema = yup.object({
 const Home: React.FC = () => {
     const router = useRouter();
     const { isAuthenticated } = useUser();
+    const estimatedLife = format(addDays(new Date(), 10), "yyyy-MM-dd'T'HH:mm");
     const { register, handleSubmit, watch } = useForm<ICreateShortener>({
         resolver: yupResolver(schema),
+        defaultValues: {
+            lifeTime: estimatedLife,
+        },
     });
     const watchURL = watch('url');
     const showConfigs = watchURL && watchURL.length > 0;
     const showConfigsStyle = showConfigs ? 'h-fit p-4' : 'h-0 p-0';
-    const estimatedLife = format(addDays(new Date(), 10), 'dd/MM/yyyy');
 
     const onSubmit = async (data: ICreateShortener) => {
         const service = isAuthenticated
@@ -134,7 +138,7 @@ const Home: React.FC = () => {
                             className="text-black border border-gray-400 rounded-lg px-4 py-2 w-52 outline-primary"
                             type="datetime-local"
                             autoComplete="off"
-                            id="life"
+                            {...register('lifeTime')}
                         />
                     </div>
                 </div>

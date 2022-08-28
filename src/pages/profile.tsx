@@ -2,14 +2,27 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { BiTrash } from 'react-icons/bi';
+import { toast } from 'react-toastify';
 import Footer from '../components/Footer';
 import { useUser } from '../contexts/UserContext';
+import { ShortenerService } from '../services/api/shortener';
 import { distanceFromNow } from '../utils/date';
 import { getShortUrl } from '../utils/string';
 
 const Profile: NextPage = () => {
     const router = useRouter();
-    const { links, isAuthenticated } = useUser();
+    const { links, isAuthenticated, getLinks } = useUser();
+
+    const handleDelete = async (shortId: string) => {
+        await ShortenerService.deleteShortener(shortId);
+
+        toast.success('URL deletado com sucesso!', {
+            theme: 'dark',
+        });
+
+        getLinks();
+    };
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -22,8 +35,8 @@ const Profile: NextPage = () => {
             <Head>
                 <title>Profile</title>
             </Head>
-            <div className="w-full lg:w-fit max-h-96 overflow-x-auto p-4 rounded-xl flex flex-col gap-4 items-center bg-white shadow-md transition">
-                <h2 className="text-black font-bold text-lg">Seus links:</h2>
+            <div className="w-full max-h-96 overflow-x-auto p-4 rounded-xl flex flex-col gap-4 bg-white shadow-md transition">
+                <h2 className="text-black font-bold text-lg text-center">Seus links:</h2>
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -44,6 +57,9 @@ const Profile: NextPage = () => {
                             </th>
                             <th scope="col" className="py-3 px-6">
                                 Expira em
+                            </th>
+                            <th scope="col" className="py-3 px-6">
+                                Ações
                             </th>
                         </tr>
                     </thead>
@@ -70,6 +86,14 @@ const Profile: NextPage = () => {
                                     <td className="py-4 px-6">{link.limit}</td>
                                     <td className="py-4 px-6">{link.category}</td>
                                     <td className="py-4 px-6">{distanceFromNow(new Date(link.lifeTime))}</td>
+                                    <td className="py-4 px-6">
+                                        <button
+                                            className="cursor-pointer p-2 bg-red-400 rounded-lg font-bold transition text-white hover:bg-red-500"
+                                            onClick={() => handleDelete(link.shortId)}
+                                        >
+                                            <BiTrash />
+                                        </button>
+                                    </td>
                                 </tr>
                             );
                         })}
