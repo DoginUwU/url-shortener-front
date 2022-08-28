@@ -9,7 +9,7 @@ import Footer from '../components/Footer';
 import { useUser } from '../contexts/UserContext';
 
 const schema = yup.object({
-    email: yup.string().required(),
+    email: yup.string().email().required(),
     password: yup.string().required().min(8),
 });
 

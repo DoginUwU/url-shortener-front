@@ -14,7 +14,27 @@ body {
     background-color: #00b8ad;
 }
 
-h1, h2, h3, p, span, button, a {
+h1,
+h2,
+h3,
+p,
+span,
+button,
+a {
     font-family: nunito, sans-serif;
 }
 
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}

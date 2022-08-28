@@ -8,6 +8,7 @@ import { ShortenerService } from '../services/api/shortener';
 
 interface IUserContext {
     login: (data: ICreateSession) => Promise<void>;
+    logout: () => void;
     getLinks: () => Promise<IShortener[]>;
     user: IUser | null;
     links: IShortener[];
@@ -31,6 +32,14 @@ const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
         if (!response) return;
     };
 
+    const logout = () => {
+        setUser(null);
+        setToken(null);
+        setIsAuthenticated(false);
+
+        localStorage.removeItem('token');
+    };
+
     const getLinks = useCallback(async (): Promise<IShortener[]> => {
         const response = await ShortenerService.getShorteners();
         setLinks(response);
@@ -44,7 +53,6 @@ const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
             setToken(session.token);
             setIsAuthenticated(true);
 
-            localStorage.setItem('user', JSON.stringify(session.user));
             localStorage.setItem('token', session.token);
 
             api.defaults.headers.common['Authorization'] = `Bearer ${session.token}`;
@@ -54,16 +62,26 @@ const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
         [getLinks],
     );
 
+    const validateToken = useCallback(
+        async (token: string): Promise<ISession> => {
+            const response = await SessionService.validateSession(token);
+
+            handleInformations(response);
+
+            return response;
+        },
+        [handleInformations],
+    );
+
     useEffect(() => {
-        const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
-        if (user && token) {
-            handleInformations({ user: JSON.parse(user), token });
+        if (token) {
+            validateToken(token);
         }
-    }, [handleInformations]);
+    }, [validateToken]);
 
     return (
-        <UserContext.Provider value={{ login, getLinks, user, token, links, isAuthenticated }}>
+        <UserContext.Provider value={{ login, logout, getLinks, user, token, links, isAuthenticated }}>
             {children}
         </UserContext.Provider>
     );

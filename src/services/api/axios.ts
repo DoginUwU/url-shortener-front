@@ -1,5 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { IAxiosError } from '../../@types/axios';
 
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
@@ -7,8 +8,8 @@ const api = axios.create({
 
 api.interceptors.response.use(
     (response) => response,
-    (err) => {
-        if (err.response.data.error) {
+    (err: AxiosError<IAxiosError>) => {
+        if (err.response?.data.error) {
             toast.error(err.response.data.error);
 
             return Promise.reject(err);

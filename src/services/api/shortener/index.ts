@@ -14,8 +14,12 @@ class ShortenerService {
         return shortener.data;
     }
 
-    static async getShortener(shortId: string): Promise<IShortener> {
-        const shortener = await api.get<IShortener>(`/shortener/${shortId}`);
+    static async getShortener(shortId: string, password?: string): Promise<IShortener> {
+        const shortener = await api.get<IShortener>(`/shortener/${shortId}`, {
+            params: {
+                password,
+            },
+        });
 
         return shortener.data;
     }

@@ -7,6 +7,12 @@ class SessionService {
 
         return session.data;
     }
+
+    static async validateSession(token: string): Promise<ISession> {
+        const session = await api.post<ISession>('/session/validate', { token });
+
+        return session.data;
+    }
 }
 
 export { SessionService };

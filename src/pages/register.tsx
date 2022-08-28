@@ -11,7 +11,7 @@ import { UserService } from '../services/api/user';
 
 const schema = yup.object({
     username: yup.string().required(),
-    email: yup.string().required(),
+    email: yup.string().email().required(),
     password: yup.string().required().min(8),
 });
 

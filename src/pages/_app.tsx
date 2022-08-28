@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Head>
                 <title>Encurte Livre</title>
             </Head>
-            <ToastContainer />
+            <ToastContainer limit={5} />
             <Header />
             <Component {...pageProps} />
         </UserProvider>
