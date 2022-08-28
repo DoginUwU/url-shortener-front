@@ -16,7 +16,7 @@ Parte web do desafio técnico da Layers Education
 Clone o projeto
 
 ```bash
-  git clone https://github.com/DoginUwU/url-shortener-front
+  git clone git@github.com:DoginUwU/url-shortener-front.git
 ```
 
 Entre no diretório do projeto
