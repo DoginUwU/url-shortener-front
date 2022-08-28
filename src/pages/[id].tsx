@@ -123,14 +123,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         };
     }
 
-    const metadata = await urlMetadata(shortener.url);
+    let metadata: urlMetadata.Result | undefined;
+
+    try {
+        metadata = await urlMetadata(shortener.url);
+    } catch (error) {
+        console.error(error);
+    }
 
     return {
         props: {
             metas: {
-                title: metadata.title || 'Encurte seu link',
-                description: metadata.description || 'Seu link de forma muito mais atrativa.',
-                image: metadata.image || '',
+                title: metadata?.title || 'Encurte seu link',
+                description: metadata?.description || 'Seu link de forma muito mais atrativa.',
+                image: metadata?.image || '',
             },
             shortener,
             passwordRequired: false,
