@@ -76,7 +76,7 @@ const Home: React.FC = () => {
                 Seu <strong>link</strong> de forma muito mais atrativa.
             </h1>
             <form className="flex flex-col gap-5 w-full md:w-fit" onSubmit={handleSubmit(onSubmit, onInvalid)}>
-                <div className="p-2 bg-white rounded-sm flex gap-2 shadow-md">
+                <div className="p-2 bg-white rounded-sm flex flex-col sm:flex-row gap-2 shadow-md">
                     <input
                         className="text-black flex-1 md:min-w-[500px] outline-none"
                         placeholder="Digite seu URL"

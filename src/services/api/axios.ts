@@ -9,7 +9,7 @@ const api = axios.create({
 api.interceptors.response.use(
     (response) => response,
     (err: AxiosError<IAxiosError>) => {
-        if (err.response?.data.error) {
+        if (err.response?.data?.error) {
             toast.error(err.response.data.error, {
                 theme: 'dark',
             });
