@@ -7,6 +7,7 @@ interface IShortener {
     userId?: string;
     password?: string;
     category?: string;
+    skip: boolean;
     lifeTime: Date;
     createdAt: Date;
     updatedAt: Date;
@@ -18,6 +19,7 @@ interface ICreateShortener {
     limit?: number;
     password?: string;
     category?: string;
+    skip: boolean;
 }
 
 export type { IShortener, ICreateShortener };

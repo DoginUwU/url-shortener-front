@@ -2,7 +2,7 @@
 import { AxiosError } from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import requestIp from 'request-ip';
 import urlMetadata from 'url-metadata';
 import { IShortener } from '../@types/shortener';
@@ -23,6 +23,13 @@ interface IProps {
 const Shortener: NextPage<IProps> = ({ metas, shortener, passwordRequired }) => {
     const [secondsLeft, setSecondsLeft] = useState(5);
 
+    const handleRedirect = useCallback(() => {
+        if (typeof window === 'undefined') return;
+        if (!shortener?.url) return;
+
+        window.location.href = shortener.url;
+    }, [shortener?.url]);
+
     useEffect(() => {
         const interval = setInterval(() => {
             setSecondsLeft((value) => (value > 0 ? value - 1 : value));
@@ -32,13 +39,15 @@ const Shortener: NextPage<IProps> = ({ metas, shortener, passwordRequired }) => 
     }, []);
 
     useEffect(() => {
-        if (typeof window === 'undefined') return;
-        if (!shortener?.url) return;
-
         if (secondsLeft === 0) {
-            window.location.href = shortener.url;
+            handleRedirect();
         }
-    }, [secondsLeft, shortener?.url]);
+    }, [handleRedirect, secondsLeft]);
+
+    if (shortener?.skip) {
+        handleRedirect();
+        return null;
+    }
 
     return (
         <div className="w-screen h-screen flex justify-center items-center flex-col gap-10">

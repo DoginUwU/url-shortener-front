@@ -29,6 +29,7 @@ const schema = yup.object({
         .string()
         .trim()
         .transform((value) => (value.length > 0 ? value : undefined)),
+    skip: yup.boolean().transform((value) => !value),
 });
 
 const Home: React.FC = () => {
@@ -44,6 +45,7 @@ const Home: React.FC = () => {
         resolver: yupResolver(schema),
         defaultValues: {
             lifeTime: estimatedLife,
+            skip: true,
         },
     });
     const watchURL = watch('url');
@@ -143,6 +145,22 @@ const Home: React.FC = () => {
                             autoComplete="off"
                             {...register('lifeTime')}
                         />
+                    </div>
+
+                    <div className="flex gap-5 items-center justify-between">
+                        <label className="text-black" htmlFor="life">
+                            Temporizador:
+                        </label>
+                        <label htmlFor="teal-toggle" className="inline-flex relative items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                value=""
+                                id="teal-toggle"
+                                className="sr-only peer"
+                                {...register('skip')}
+                            />
+                            <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-teal-300 dark:peer-focus:ring-teal-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                        </label>
                     </div>
                 </div>
             </form>
