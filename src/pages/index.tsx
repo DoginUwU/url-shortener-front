@@ -54,8 +54,6 @@ const Home: React.FC = () => {
     const showConfigsStyle = showConfigs ? 'h-fit p-4' : 'h-0 p-0';
 
     const onSubmit = async (data: ICreateShortener) => {
-        console.log(data);
-
         const service = isAuthenticated
             ? ShortenerService.createPrivateShortenerUrl
             : ShortenerService.createShortenerUrl;
