@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { ICreateShortener } from '../@types/shortener';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
+import Input from '../components/Input';
 import { URL_REGEX_VALIDATE } from '../constants/regex';
 import { useUser } from '../contexts/UserContext';
 import { ShortenerService } from '../services/api/shortener';
@@ -53,6 +54,8 @@ const Home: React.FC = () => {
     const showConfigsStyle = showConfigs ? 'h-fit p-4' : 'h-0 p-0';
 
     const onSubmit = async (data: ICreateShortener) => {
+        console.log(data);
+
         const service = isAuthenticated
             ? ShortenerService.createPrivateShortenerUrl
             : ShortenerService.createShortenerUrl;
@@ -98,8 +101,8 @@ const Home: React.FC = () => {
                         <label className="text-black" htmlFor="limit">
                             Limite de clicks:
                         </label>
-                        <input
-                            className="text-black border border-gray-400 rounded-lg px-4 py-2 w-52 outline-primary"
+                        <Input
+                            className="w-52"
                             type="number"
                             min="0"
                             max="100"
@@ -113,8 +116,8 @@ const Home: React.FC = () => {
                         <label className="text-black" htmlFor="password">
                             Senha:
                         </label>
-                        <input
-                            className="text-black border border-gray-400 rounded-lg px-4 py-2 w-52 outline-primary"
+                        <Input
+                            className="w-52"
                             type="password"
                             placeholder="Ex: 123456"
                             autoComplete="off"
@@ -126,8 +129,8 @@ const Home: React.FC = () => {
                         <label className="text-black" htmlFor="category">
                             Categoria:
                         </label>
-                        <input
-                            className="text-black border border-gray-400 rounded-lg px-4 py-2 w-52 outline-primary"
+                        <Input
+                            className="w-52"
                             type="text"
                             placeholder="Ex: jogos"
                             autoComplete="off"
@@ -139,12 +142,7 @@ const Home: React.FC = () => {
                         <label className="text-black" htmlFor="life">
                             Vida útil do link:
                         </label>
-                        <input
-                            className="text-black border border-gray-400 rounded-lg px-4 py-2 w-52 outline-primary"
-                            type="datetime-local"
-                            autoComplete="off"
-                            {...register('lifeTime')}
-                        />
+                        <Input className="w-52" type="datetime-local" autoComplete="off" {...register('lifeTime')} />
                     </div>
 
                     <div className="flex gap-5 items-center justify-between">
@@ -153,10 +151,10 @@ const Home: React.FC = () => {
                         </label>
                         <label htmlFor="teal-toggle" className="inline-flex relative items-center cursor-pointer">
                             <input
+                                className="sr-only peer"
                                 type="checkbox"
                                 value=""
                                 id="teal-toggle"
-                                className="sr-only peer"
                                 {...register('skip')}
                             />
                             <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-teal-300 dark:peer-focus:ring-teal-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
