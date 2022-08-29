@@ -74,8 +74,8 @@ const Home: React.FC = () => {
     };
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center flex-col gap-4 p-8 md:gap-2 md:p-0">
-            <h1 className="leading-10 md:leading-[80px] font-bold text-[42px] md:text-[64px] max-w-[780px] text-center text-white">
+        <div className="w-screen h-screen flex justify-center items-center flex-col gap-4 md:gap-20 p-8 md:p-0">
+            <h1 className="md:leading-[80px] font-bold text-[42px] md:text-[64px] max-w-[780px] text-center text-white">
                 Seu <strong>link</strong> de forma muito mais atrativa.
             </h1>
             <form className="flex flex-col gap-5 w-full md:w-fit" onSubmit={handleSubmit(onSubmit, onInvalid)}>
