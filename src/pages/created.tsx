@@ -17,7 +17,7 @@ const Created: NextPage = () => {
     useEffect(() => {
         const jsConfetti = new JSConfetti();
         jsConfetti.addConfetti({
-            emojis: ['🦖'],
+            emojis: ['🦖', '🦴'],
         });
     }, []);
 
