@@ -74,8 +74,8 @@ const Home: React.FC = () => {
     };
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center flex-col gap-4 md:gap-20 p-8 md:p-0">
-            <h1 className="md:leading-[80px] font-bold text-[42px] md:text-[64px] max-w-[780px] text-center text-white">
+        <div className="w-screen h-screen flex justify-center items-center flex-col gap-4 p-8 md:gap-2 md:p-0">
+            <h1 className="leading-10 md:leading-[80px] font-bold text-[42px] md:text-[64px] max-w-[780px] text-center text-white">
                 Seu <strong>link</strong> de forma muito mais atrativa.
             </h1>
             <form className="flex flex-col gap-5 w-full md:w-fit" onSubmit={handleSubmit(onSubmit, onInvalid)}>
@@ -95,12 +95,12 @@ const Home: React.FC = () => {
                     className={`${showConfigsStyle} transition-all bg-white rounded-sm flex gap-2 flex-col shadow-md overflow-hidden`}
                 >
                     <h2 className="text-black font-bold">Configurações de link:</h2>
-                    <div className="flex gap-5 items-center justify-between">
+                    <div className="flex gap-2 items-center justify-between flex-col sm:flex-row sm:gap-5">
                         <label className="text-black" htmlFor="limit">
                             Limite de clicks:
                         </label>
                         <Input
-                            className="w-52"
+                            className="w-full sm:w-52"
                             type="number"
                             min="0"
                             max="100"
@@ -110,12 +110,12 @@ const Home: React.FC = () => {
                             {...register('limit')}
                         />
                     </div>
-                    <div className="flex gap-5 items-center justify-between">
+                    <div className="flex gap-2 items-center justify-between flex-col sm:flex-row sm:gap-5">
                         <label className="text-black" htmlFor="password">
                             Senha:
                         </label>
                         <Input
-                            className="w-52"
+                            className="w-full sm:w-52"
                             type="password"
                             placeholder="Ex: 123456"
                             autoComplete="off"
@@ -123,12 +123,12 @@ const Home: React.FC = () => {
                             {...register('password')}
                         />
                     </div>
-                    <div className="flex gap-5 items-center justify-between">
+                    <div className="flex gap-2 items-center justify-between flex-col sm:flex-row sm:gap-5">
                         <label className="text-black" htmlFor="category">
                             Categoria:
                         </label>
                         <Input
-                            className="w-52"
+                            className="w-full sm:w-52"
                             type="text"
                             placeholder="Ex: jogos"
                             autoComplete="off"
@@ -136,14 +136,19 @@ const Home: React.FC = () => {
                             {...register('category')}
                         />
                     </div>
-                    <div className="flex gap-5 items-center justify-between">
+                    <div className="flex gap-2 items-center justify-between flex-col sm:flex-row sm:gap-5">
                         <label className="text-black" htmlFor="life">
                             Vida útil do link:
                         </label>
-                        <Input className="w-52" type="datetime-local" autoComplete="off" {...register('lifeTime')} />
+                        <Input
+                            className="w-full sm:w-52"
+                            type="datetime-local"
+                            autoComplete="off"
+                            {...register('lifeTime')}
+                        />
                     </div>
 
-                    <div className="flex gap-5 items-center justify-between">
+                    <div className="flex gap-5 items-center justify-between mt-4 sm:mt-0">
                         <label className="text-black" htmlFor="life">
                             Temporizador:
                         </label>

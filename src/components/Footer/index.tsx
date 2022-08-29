@@ -3,7 +3,7 @@ import React from 'react';
 
 const Footer: React.FC = () => {
     return (
-        <div className="absolute bottom-10">
+        <div className="absolute bottom-10 hidden sm:block">
             <img src="/assets/layers.svg" alt="Layers Education" />
         </div>
     );
