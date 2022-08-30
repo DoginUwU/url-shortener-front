@@ -13,6 +13,9 @@ const Header: React.FC = () => {
                     <img className="cursor-pointer hidden md:block" src="/assets/logo.svg" alt="Encurte livre" />
                 </Link>
                 <div className="flex gap-8 items-center justify-between w-full md:w-fit">
+                    <Link href="/about">
+                        <p className="cursor-pointer font-bold text-white">Sobre</p>
+                    </Link>
                     {isAuthenticated && user ? (
                         <>
                             <Link href="/profile">
@@ -31,7 +34,7 @@ const Header: React.FC = () => {
                                 <p className="cursor-pointer font-bold text-white">Login</p>
                             </Link>
                             <a
-                                className="px-4 py-2 bg-black rounded-lg font-bold transition text-white hover:bg-gray-800"
+                                className="hidden md:block px-4 py-2 bg-black rounded-lg font-bold transition text-white hover:bg-gray-800"
                                 href="https://github.com/DoginUwU/url-shortener-front"
                                 target="_blank"
                                 rel="noopener noreferrer"
